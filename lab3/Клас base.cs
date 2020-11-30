@@ -8,7 +8,7 @@ using lab3;
 
 namespace lab3
 {
-    sealed class Class_Base
+    abstract class Class_Base
     {
         protected int[] arrey;       
         int _krok;
