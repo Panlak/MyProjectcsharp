@@ -10,7 +10,7 @@ namespace lab3
 {
     class Class_arifm : Class_Base
     {
-        public Class_arifm(char size)
+        public Class_arifm(int size)
              : base(size)
         { }
         public override int krok { get => base.krok; set => base.krok = value; }
