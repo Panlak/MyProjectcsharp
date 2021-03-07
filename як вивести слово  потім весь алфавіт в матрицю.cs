@@ -3,7 +3,7 @@ static void Main(string[] args)
 			Random rand = new Random();
 
 
-			// 98 - 123 букви алфавіту
+			// 98 - 123 ГЎГіГЄГўГЁ Г Г«ГґГ ГўВіГІГі
 			// a b c d e f g h i j k l m n o p q r s t u v w x y z
 
 			char[] alphabet =
