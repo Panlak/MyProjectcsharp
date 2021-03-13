@@ -80,8 +80,7 @@ namespace PlaferCode
 						}
 					}
 
-				}
-			
+				}			
 				(literOne, LiterSecond) = IfInSameColumn(matrix, literOne, LiterSecond, FirstLiter_i, SecondLiter_i, FirstLiter_j, SecondLiter_j);
 				(literOne, LiterSecond) = IfInSameRow(matrix, literOne, LiterSecond, FirstLiter_i, SecondLiter_i, FirstLiter_j, SecondLiter_j);
 				(literOne, LiterSecond) = NOTInSameRowANDcolumn(matrix, literOne, LiterSecond, FirstLiter_i, SecondLiter_i, FirstLiter_j, SecondLiter_j);
@@ -94,12 +93,14 @@ namespace PlaferCode
 				
 
 			}
-			Console.WriteLine("Матрица плейфера");
+			Console.WriteLine();
+			Console.WriteLine("Playfer matrix");
 			Console.WriteLine("---------");
 			print(matrix);
 			Console.WriteLine("---------");
 
-			Console.WriteLine(encod.ToLower());
+			
+			Console.WriteLine($"Encrypted text ==> {encod}");
 
 
 		}
@@ -139,11 +140,6 @@ namespace PlaferCode
 				}
 
 			}
-
-
-
-
-
 			return key;
 
 		}
@@ -162,26 +158,14 @@ namespace PlaferCode
 		{
 			if (FirstLiter_i == SecondLiter_i)
 			{
-				if (FirstLiter_j == 4)
-				{
-					literOne = Convert.ToString(matrix[FirstLiter_i, 0]);
-				}
-
-				else
-				{
-					literOne = Convert.ToString(matrix[FirstLiter_i, FirstLiter_j + 1]);
-				}
-
+				if (FirstLiter_j == 4)				
+					literOne = Convert.ToString(matrix[FirstLiter_i, 0]);				
+				else				
+					literOne = Convert.ToString(matrix[FirstLiter_i, FirstLiter_j + 1]);				
 				if (SecondLiter_j == 4)
-				{
-					LiterSecond = Convert.ToString(matrix[SecondLiter_i, 0]);
-				}
-
-				else
-				{
-					LiterSecond = Convert.ToString(matrix[SecondLiter_i, SecondLiter_j + 1]);
-				}
-
+					LiterSecond = Convert.ToString(matrix[SecondLiter_i, 0]);				
+				else			
+					LiterSecond = Convert.ToString(matrix[SecondLiter_i, SecondLiter_j + 1]);				
 			}
 
 			return (literOne, LiterSecond);
@@ -190,27 +174,16 @@ namespace PlaferCode
 		{
 			if (FirstLiter_j == SecondLiter_j)
 			{
-				if (FirstLiter_i == 4)
-				{
-					literOne = Convert.ToString(matrix[0, FirstLiter_j]);
-				}
-				else
-				{
+				if (FirstLiter_i == 4)				
+					literOne = Convert.ToString(matrix[0, FirstLiter_j]);				
+				else			
 					literOne = Convert.ToString(matrix[FirstLiter_i + 1, FirstLiter_j]);
-				}
-
-				if (SecondLiter_i == 4)
-				{
+				if (SecondLiter_i == 4)			
 					LiterSecond = Convert.ToString(matrix[0, SecondLiter_j]);
-				}
-
-				else
-				{
+				else			
 					LiterSecond = Convert.ToString(matrix[SecondLiter_i + 1, SecondLiter_j]);
-				}
+				
 			}
-
-
 			return (literOne, LiterSecond);
 		}
 		public static void print(int[,] arrey)
@@ -231,9 +204,7 @@ namespace PlaferCode
 		{
 			int b = -1;
 			int a = -1;
-			int[] result = new int[alphabet.Length + key.Length];
-			
-
+				
 			int[,] matrix = new int[5, 5];
 
 			
