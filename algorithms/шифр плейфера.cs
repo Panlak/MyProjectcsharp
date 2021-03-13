@@ -20,12 +20,21 @@ namespace PlaferCode
 		static void Main(string[] args)
 		{
 
-			Console.WriteLine("Ведіть текст ключ");
+			Console.WriteLine("Enter key");
 			char[] key = getKey(Console.ReadLine()).ToCharArray();
-
-
-			Console.WriteLine("Ведіть текст який хочете зашифрувати");
+			if (key == "".ToCharArray())
+			{
+				Console.WriteLine("Eror - invalid character");
+				return;
+			}
+			Console.WriteLine("Enter text");
 			string text = getText(Console.ReadLine());
+			if  (text == "")
+			{
+				Console.WriteLine("Eror invalid character");
+				return;
+			}
+
 
 			int[,] matrix = getMatrix(key);
 
@@ -72,16 +81,7 @@ namespace PlaferCode
 					}
 
 				}
-
-				if (literOne == LiterSecond)
-				{
-
-
-
-					Console.WriteLine(literOne + FirstLiter_i + FirstLiter_j);
-					Console.WriteLine(LiterSecond + SecondLiter_i + SecondLiter_j);
-				}
-
+			
 				(literOne, LiterSecond) = IfInSameColumn(matrix, literOne, LiterSecond, FirstLiter_i, SecondLiter_i, FirstLiter_j, SecondLiter_j);
 				(literOne, LiterSecond) = IfInSameRow(matrix, literOne, LiterSecond, FirstLiter_i, SecondLiter_i, FirstLiter_j, SecondLiter_j);
 				(literOne, LiterSecond) = NOTInSameRowANDcolumn(matrix, literOne, LiterSecond, FirstLiter_i, SecondLiter_i, FirstLiter_j, SecondLiter_j);
@@ -91,7 +91,7 @@ namespace PlaferCode
 				encod += ((char)int.Parse(literOne)).ToString() + ((char)int.Parse(LiterSecond)).ToString();
 
 
-				Console.WriteLine(encod);
+				
 
 			}
 			Console.WriteLine("Матрица плейфера");
@@ -109,20 +109,18 @@ namespace PlaferCode
 
 			text = text.ToLower();
 			text = text.Replace("j", "i");
+			text = text.Replace(" ", "");
+			if (text.Length % 2 != 0)
+				text += "x";
 			for (int i = 0; i < text.Length; i++)
 			{
 				if (!alphabet.Contains(text.ToCharArray()[i]))
 				{
-					text = text.Replace(text[i], ' ');
+					text = "";
+					break;
 				}
 
-			}
-			text = text.Replace(" ", "");
-
-			if (text.Length % 2 != 0)
-				text += "x";
-
-			Console.WriteLine(text);
+			}			
 			return text;
 		}
 
@@ -130,20 +128,21 @@ namespace PlaferCode
 		{
 			key = key.ToLower();
 			key = key.Replace("j", "i");
-
+			key = new string(key.Distinct().ToArray());
+			key = key.Replace(" ", "");
 			for (int i = 0; i < key.Length; i++)
 			{
 				if (!alphabet.Contains(key.ToCharArray()[i]))
 				{
-					key = key.Replace(key[i], ' '); ;
+					key = "";
+					break;
 				}
 
 			}
-			key = new string(key.Distinct().ToArray());
-			key = key.Replace(" ", "");
 
 
-			Console.WriteLine(key);
+
+
 
 			return key;
 
@@ -231,55 +230,33 @@ namespace PlaferCode
 		public static int[,] getMatrix(char[] key)
 		{
 			int b = -1;
+			int a = -1;
 			int[] result = new int[alphabet.Length + key.Length];
-
-
-			int a = 0;
-			if (key.Contains('a'))
-				a = 0;
-			else
-				a = -1;
-
+			
 
 			int[,] matrix = new int[5, 5];
-			for (int i = 0; i < result.Length; i++)
-			{
-				if (b < key.Length - 1)
-				{
-					b++;
-					result[i] = key[b];
-				}
-				else
-				{
-					if (a < alphabet.Length - 1)
-						a++;
-					if (Array.IndexOf(key, alphabet[a]) > -1)
-					{
-						continue;
-					}
-					result[i] = alphabet[a];
-				}
 
-			}
+			
+			alphabet = alphabet.Except(key).ToArray();
 
-
-			result = result.Where(val => val != 0).ToArray();
-
-			int g = -1;
 			for (int i = 0; i < matrix.GetLength(0); i++)
 			{
-
-				for (int j = 0; j < matrix.GetLength(1); j++)
+				for (int j = 0; j < matrix.GetLength(0); j++)
 				{
-					if (g < result.Length - 1)
+					if (b < key.Length-1)
 					{
-						g++;
+						b++;
+						matrix[i, j] = key[b];
 					}
-					matrix[i, j] = result[g];
-
+					else
+					{
+						if( a <alphabet.Length -1)
+						a++;
+						matrix[i, j] = alphabet[a];
+					}
 				}
-
 			}
+
 			return matrix;
 		}
 
